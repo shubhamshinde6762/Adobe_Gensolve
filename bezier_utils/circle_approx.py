@@ -3,13 +3,49 @@ import matplotlib.pyplot as plt
 from scipy.optimize import leastsq
 
 def bezier_curve_cubic(p0, p1, p2, p3, t):
+    """
+    Computes a point on a cubic Bezier curve.
+
+    Parameters:
+    p0, p1, p2, p3: tuple
+        Control points of the Bezier curve.
+    t: float
+        Parameter between 0 and 1.
+
+    Returns:
+    np.array
+        The point on the Bezier curve corresponding to the parameter t.
+    """
     return (1 - t)**3 * np.array(p0) + 3 * (1 - t)**2 * t * np.array(p1) + 3 * (1 - t) * t**2 * np.array(p2) + t**3 * np.array(p3)
 
-
 def points_match(p1, p2, tolerance=1e-6):
+    """
+    Checks if two points match within a given tolerance.
+
+    Parameters:
+    p1, p2: tuple
+        The points to compare.
+    tolerance: float
+        The tolerance for comparison.
+
+    Returns:
+    bool
+        True if the points match within the tolerance, False otherwise.
+    """
     return np.linalg.norm(np.array(p1) - np.array(p2)) < tolerance
 
 def find_loops(bezier_curves):
+    """
+    Identifies loops in a list of Bezier curves.
+
+    Parameters:
+    bezier_curves: list of tuples
+        List of Bezier curves represented by their control points.
+
+    Returns:
+    list of lists
+        List of loops, where each loop is a list of Bezier curves.
+    """
     curves_to_plot = []
     used = set()
     
@@ -38,6 +74,17 @@ def find_loops(bezier_curves):
     return curves_to_plot
 
 def fit_circle(points):
+    """
+    Fits a circle to a set of points.
+
+    Parameters:
+    points: np.array
+        Array of points to fit the circle to.
+
+    Returns:
+    tuple
+        Parameters of the fitted circle (x_center, y_center, radius).
+    """
     def objective(params):
         x0, y0, r = params
         distances = np.sqrt((points[:,0] - x0)**2 + (points[:,1] - y0)**2)
@@ -51,6 +98,19 @@ def fit_circle(points):
     return result
 
 def check_circularity_and_fit(loop, radius_threshold=5):
+    """
+    Checks if a loop of Bezier curves forms a circle and fits the circle.
+
+    Parameters:
+    loop: list of tuples
+        List of Bezier curves representing the loop.
+    radius_threshold: float
+        Threshold for the maximum distance deviation to consider as a circle.
+
+    Returns:
+    tuple or None
+        Parameters of the fitted circle (x_center, y_center, radius) if circular, otherwise None.
+    """
     all_points = []
     for curve in loop:
         p0, p1, p2, p3 = curve
@@ -71,8 +131,17 @@ def check_circularity_and_fit(loop, radius_threshold=5):
     return None
 
 def process_bezier_and_circles(bezier_curves):
-    # print(bezier_curves)
-    
+    """
+    Processes a list of Bezier curves to find loops and fit circles to them.
+
+    Parameters:
+    bezier_curves: list of tuples
+        List of Bezier curves represented by their control points.
+
+    Returns:
+    tuple
+        Non-looped curves, looped curves, and circle fits.
+    """
     def curve_to_tuple(curve):
         return tuple(map(tuple, curve))
     
