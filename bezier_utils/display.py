@@ -60,8 +60,6 @@ def plot_bezier_curves_by_cross_linear(cubic_points, quadratic_points, threshold
     plt.show()
 
 
-
-
 def plot_bezier_curves_by_curvature(cubic_points, quadratic_points, threshold=1.0, curvature_tolerance=0.01, show_control=False, show_centers=True):
     """
     Plot Bézier curves, their control points, osculating circle centers, and approximate linear segments based on curvature.
@@ -106,9 +104,6 @@ def plot_bezier_curves_by_curvature(cubic_points, quadratic_points, threshold=1.
     plt.ylabel('Y')
     plt.grid()
     plt.show()
-
-
-
 
 def plot_bezier_curves(cubic_points, quadratic_points, threshold=1.0):
     plt.figure(figsize=(10, 10))
