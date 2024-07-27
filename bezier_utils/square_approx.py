@@ -60,3 +60,26 @@ def draw_quadrilateral_with_square(quadrilateral, a_t=0.1, l_t=0.1):
     
     ax.set_aspect('equal', adjustable='box')
     plt.show()
+
+def get_quadrilateral_and_square_vertices(quadrilateral, a_t=0.1, l_t=0.1):
+    quadrilateral_vertices = [point for segment in quadrilateral for point in segment]
+
+    if is_roughly_square(quadrilateral, a_t, l_t):
+        # Calculate the center of the quadrilateral
+        center = np.mean(quadrilateral_vertices, axis=0)
+        
+        # Calculate the side length of the approximated square
+        side_length = np.mean([calculate_distance(segment[0], segment[1]) for segment in quadrilateral])
+        
+        # Calculate the coordinates of the square's vertices
+        half_side = side_length / 2
+        square_vertices = [
+            center + np.array([-half_side, -half_side]),
+            center + np.array([half_side, -half_side]),
+            center + np.array([half_side, half_side]),
+            center + np.array([-half_side, half_side])
+        ]
+    else:
+        square_vertices = None
+
+    return square_vertices
