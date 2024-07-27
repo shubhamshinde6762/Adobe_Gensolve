@@ -94,7 +94,7 @@ def merge_beziers(beziers, proximity_threshold=15, collinearity_tolerance=1, ort
     return merged_beziers, remaining_beziers
 
 def plot_beziers(merged_beziers, remaining_beziers, is_3d=False):
-    plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(12, 12))
     
     for curve in merged_beziers:
         points = bezier_curve(curve)
