@@ -29,11 +29,11 @@ def plot_bezier_curves_by_cross_linear(cubic_points, quadratic_points, threshold
         curve = bezier_curve(points)
         centers = osculating_circle_center(points, threshold)
         color = np.random.rand(3,)  # Random color for each curve
-        plt.plot(curve[:, 0], curve[:, 1], label='Cubic Bezier', color=color)
-        if(show_control):
-            plt.plot(points[:, 0], points[:, 1], 'ro--')  
-        if(show_centers):
-            plt.plot(centers[:, 0], centers[:, 1], 'x', label='Osculating Circle Centers', color=color)  # Uncomment to plot osculating circle centers
+        # plt.plot(curve[:, 0], curve[:, 1], label='Cubic Bezier', color=color)
+        # if(show_control):
+        #     plt.plot(points[:, 0], points[:, 1], 'ro--')  
+        # if(show_centers):
+        #     plt.plot(centers[:, 0], centers[:, 1], 'x', label='Osculating Circle Centers', color=color)  # Uncomment to plot osculating circle centers
         
         if is_approximately_linear(curve, linear_tolerance):
             plt.plot([points[0][0], points[-1][0]], [points[0][1], points[-1][1]], 'k--', label='Approx. Linear')
@@ -43,11 +43,11 @@ def plot_bezier_curves_by_cross_linear(cubic_points, quadratic_points, threshold
         curve = bezier_curve(points)
         centers = osculating_circle_center(points, threshold)
         color = np.random.rand(3,)  # Random color for each curve
-        plt.plot(curve[:, 0], curve[:, 1], label='Quadratic Bezier', color=color)
-        if(show_control):
-            plt.plot(points[:, 0], points[:, 1], 'bo--')  # Uncomment to plot control points
-        if(show_centers):
-            plt.plot(centers[:, 0], centers[:, 1], 'x', label='Osculating Circle Centers', color=color)  # Uncomment to plot osculating circle centers
+        # plt.plot(curve[:, 0], curve[:, 1], label='Quadratic Bezier', color=color)
+        # if(show_control):
+        #     plt.plot(points[:, 0], points[:, 1], 'bo--')  # Uncomment to plot control points
+        # if(show_centers):
+        #     plt.plot(centers[:, 0], centers[:, 1], 'x', label='Osculating Circle Centers', color=color)  # Uncomment to plot osculating circle centers
         
         if is_approximately_linear(curve, linear_tolerance):
             plt.plot([points[0][0], points[-1][0]], [points[0][1], points[-1][1]], 'k--', label='Approx. Linear')
