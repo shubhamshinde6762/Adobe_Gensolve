@@ -38,7 +38,7 @@ def plot_bezier_curves_by_cross_linear(cubic_points, quadratic_points, threshold
         if is_approximately_linear(curve, linear_tolerance):
             plt.plot([points[0][0], points[-1][0]], [points[0][1], points[-1][1]], 'k--', label='Approx. Linear')
 
-    # Plot quadratic Bézier curves
+    # Plot quadratic Bézier curvesN
     for points in quadratic_points:
         curve = bezier_curve(points)
         centers = osculating_circle_center(points, threshold)
