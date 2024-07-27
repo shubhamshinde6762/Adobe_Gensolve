@@ -60,22 +60,22 @@ def are_collinear(curve1, curve2, tolerance=1e-2):
     
     return distance1 < tolerance and distance2 < tolerance
 
-def merge_beziers(beziers, proximity_threshold=15, collinearity_tolerance=1, orthogonality_threshold=17):
+def merge_beziers(beziers, proximity_threshold=15, collinearity_tolerance=0.8, orthogonality_threshold=10):
     merged_beziers = []
     remaining_beziers = []
     used = np.zeros(len(beziers), dtype=bool)
 
     for i in range(len(beziers)):
-        if used[i]:
-            continue
+        # if used[i]:
+        #     continue
         
         curve = beziers[i]
         used[i] = True
         merged = False
         
         for j in range(i + 1, len(beziers)):
-            if used[j]:
-                continue
+            # if used[j]:
+            #     continue
             
             other_curve = beziers[j]
             dist = np.min([euclidean(curve[-1], other_curve[0]), euclidean(curve[0], other_curve[-1])])
@@ -93,20 +93,30 @@ def merge_beziers(beziers, proximity_threshold=15, collinearity_tolerance=1, ort
     
     return merged_beziers, remaining_beziers
 
-def plot_beziers(merged_beziers, remaining_beziers, is_3d=False):
+def plot_beziers(merged_beziers, remaining_beziers, original_beziers):
     plt.figure(figsize=(12, 12))
+    
+    # print(len(merged_beziers))
     
     for curve in merged_beziers:
         points = bezier_curve(curve)
         plt.plot(points[:, 0], points[:, 1], linestyle='-', color='blue')
     
+    print(merged_beziers)
     for curve in remaining_beziers:
         points = bezier_curve(curve)
-        plt.plot(points[:, 0], points[:, 1], linestyle='--', color='red')
+        plt.plot(points[:, 0], points[:, 1], linestyle='-', color='red')
     
-    plt.legend()
+    # original_curves_set = set(tuple(map(tuple, curve)) for curve in original_beziers)
+    # for curve in original_beziers:
+    #     if tuple(map(tuple, curve)) in original_curves_set:
+    #         points = bezier_curve(curve)
+    #         plt.plot(points[:, 0], points[:, 1], linestyle=':', color='green')
+
     plt.xlabel('X-axis')
     plt.ylabel('Y-axis')
-    plt.title('Merged and Remaining Bézier Curves')
+    plt.title('Merged, Remaining, and Original Bézier Curves')
     plt.grid(True)
+    plt.legend()
     plt.show()
+
