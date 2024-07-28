@@ -153,3 +153,11 @@ def calculate_angle(a, b, c):
     if angle>180:
         angle = 360-angle
     return angle
+
+
+
+
+def remove_elements(list1, list2):
+    set2 = set(list2)
+    result = [item for item in list1 if item not in set2]
+    return result

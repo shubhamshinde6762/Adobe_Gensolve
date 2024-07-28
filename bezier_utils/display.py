@@ -130,3 +130,16 @@ def plot_bezier_curves(cubic_points, quadratic_points, threshold=1.0):
     plt.ylabel('Y')
     plt.grid()
     plt.show()
+
+
+
+
+def plot_bezier_curve_cubic(ax, control_points):
+    n = len(control_points) - 1
+    t = np.linspace(0, 1, 100)
+    curve = np.zeros((100, 2))
+    for i in range(n + 1):
+        curve += np.outer((np.math.factorial(n) /
+                        (np.math.factorial(i) * np.math.factorial(n - i))) *
+                        (t ** i) * ((1 - t) ** (n - i)), control_points[i])
+    ax.plot(curve[:, 0], curve[:, 1], 'b')
