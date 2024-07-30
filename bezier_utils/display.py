@@ -114,7 +114,7 @@ def plot_bezier_curves(cubic_points, quadratic_points, threshold=1.0):
         color = np.random.rand(3,)  # Random color for each curve
         plt.plot(curve[:, 0], curve[:, 1], label='Cubic Bezier', color=color)
         #plt.plot(points[:, 0], points[:, 1], 'ro--')  # Control points
-        plt.plot(centers[:, 0], centers[:, 1], 'x', label='Osculating Circle Centers', color=color)  # Osculating circle centers
+        # plt.plot(centers[:, 0], centers[:, 1], 'x', label='Osculating Circle Centers', color=color)  # Osculating circle centers
     
     for points in quadratic_points:
         curve = bezier_curve(points)
@@ -122,7 +122,7 @@ def plot_bezier_curves(cubic_points, quadratic_points, threshold=1.0):
         color = np.random.rand(3,)  # Random color for each curve
         plt.plot(curve[:, 0], curve[:, 1], label='Quadratic Bezier', color=color)
         plt.plot(points[:, 0], points[:, 1], 'bo--')  # Control points
-        plt.plot(centers[:, 0], centers[:, 1], 'x', label='Osculating Circle Centers', color=color)  # Osculating circle centers
+        # plt.plot(centers[:, 0], centers[:, 1], 'x', label='Osculating Circle Centers', color=color)  # Osculating circle centers
     
     #plt.legend()
     plt.title('Bezier Curves with Osculating Circle Centers')

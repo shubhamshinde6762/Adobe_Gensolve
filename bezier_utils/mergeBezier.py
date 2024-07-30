@@ -60,7 +60,7 @@ def are_collinear(curve1, curve2, tolerance=1e-2):
     
     return distance1 < tolerance and distance2 < tolerance
 
-def merge_beziers(beziers, proximity_threshold=15, collinearity_tolerance=0.8, orthogonality_threshold=10):
+def merge_beziers(beziers, proximity_threshold=15, collinearity_tolerance=1, orthogonality_threshold=10):
     merged_beziers = []
     remaining_beziers = []
     used = np.zeros(len(beziers), dtype=bool)
@@ -100,12 +100,12 @@ def plot_beziers(merged_beziers, remaining_beziers, original_beziers):
     
     for curve in merged_beziers:
         points = bezier_curve(curve)
-        plt.plot(points[:, 0], points[:, 1], linestyle='-', color='blue')
+        plt.plot(points[:, 0], points[:, 1],linewidth=14, linestyle='-', color='blue')
     
-    print(merged_beziers)
-    for curve in remaining_beziers:
-        points = bezier_curve(curve)
-        plt.plot(points[:, 0], points[:, 1], linestyle='-', color='red')
+    # print(merged_beziers)
+    # for curve in remaining_beziers:
+    #     points = bezier_curve(curve)
+    #     plt.plot(points[:, 0], points[:, 1], linestyle='-', color='red')
     
     # original_curves_set = set(tuple(map(tuple, curve)) for curve in original_beziers)
     # for curve in original_beziers:
