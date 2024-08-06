@@ -124,7 +124,7 @@ class PolygonDetection:
                     best_fit_polygon = approx_vertices
                     best_rotation_angle = angle
                     best_radius = radius
-                print(score)
+                # print(score)
 
         return best_fit_polygon, best_rotation_angle, best_radius
 
@@ -182,7 +182,7 @@ class PolygonDetection:
                 distances = cdist(segment_points, best_fit_polygon, 'euclidean').min(axis=1)
                 line_errors.append(np.mean(distances))
 
-            print(line_errors)
+            # print(line_errors)
             if any(error > self.error_threshold for error in line_errors):
                 for line in lines:
                     remaining_segments.append(line)
