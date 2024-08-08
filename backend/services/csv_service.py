@@ -92,7 +92,7 @@ def process_csv_data(csv_data: str):
 
         # Process possible circles
         for idx, (center, radius, circle_points) in enumerate(possible_circles):
-            num_circle_points = int(100 * radius)
+            num_circle_points = int(10 * radius)
             circle_points = generate_circle_points(center, radius, num_circle_points)
             for point in circle_points:
                 data.append([index, '0.0000', point[0], point[1]])
@@ -130,7 +130,7 @@ def process_csv_data(csv_data: str):
 
         output = StringIO()
         writer = csv.writer(output)
-        writer.writerow(['Curve Index', 'Static', 'X', 'Y'])
+        writer.writerow(['CurveIndex', 'Static', 'X', 'Y'])
         writer.writerows(data)
         return output.getvalue()
 
