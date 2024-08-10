@@ -1,13 +1,6 @@
-from flask import Flask
-from flask_cors import CORS
-from routes import csv_routes
-import sys
+from configApp import create_app
 
-def create_app():
-    app = Flask(__name__)
-    sys.stdout.flush()
-    CORS(app)  # Enable CORS for all routes and origins
-    app.register_blueprint(csv_routes.bp)
-    return app
+app = create_app()
 
-
+if __name__ == '__main__':
+    app.run(debug=True)
