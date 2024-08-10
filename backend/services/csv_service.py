@@ -29,7 +29,6 @@ def process_csv_data(csv_data: str):
     circle_detector = CircleDetector(cycles)
     remaining_sides = circle_detector.remaining_sides
     filtered_unused_loops, possible_circles = circle_detector.detect_circles()
-
     unique_cycles = circle_detector.unique_cycles
 
     for polygon in unique_cycles:
