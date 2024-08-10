@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class CurveProcessor:
-    def __init__(self, curves: dict[int, List[Tuple[float, float]]], epsilon: float = 5.0, threshold: float = 5.0):
+    def __init__(self, curves: dict[int, List[Tuple[float, float]]], epsilon: float = 5.0, threshold: float = 15.0):
         self.curves = curves
         self.epsilon = epsilon
         self.threshold = threshold

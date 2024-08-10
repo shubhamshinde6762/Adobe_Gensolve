@@ -8,7 +8,7 @@ class PolygonDetection:
     def __init__(self, error_threshold=150):
         self.error_threshold = error_threshold
         
-    def sample_points_along_segment(self, p1, p2, num_points=100):
+    def sample_points_along_segment(self, p1, p2, num_points=30):
         return np.linspace(p1, p2, num_points)
 
     def calculate_angle_between_lines(self, line1, line2):
@@ -37,41 +37,110 @@ class PolygonDetection:
         angle = math.degrees(math.acos(cos_theta))
         return angle
 
-    def are_points_close(self, p1, p2, tolerance=5):
+    def are_points_close(self, p1, p2, tolerance=1):
         return np.linalg.norm(np.array(p1) - np.array(p2)) < tolerance
+
+    def calculate_area_contribution(self, p1, p2, p3):
+        """Calculate the signed area of the triangle formed by p1, p2, p3."""
+        return 0.5 * abs(p1[0] * (p2[1] - p3[1]) + p2[0] * (p3[1] - p1[1]) + p3[0] * (p1[1] - p2[1]))
+
+    def calculate_internal_angle(self, p1, p2, p3):
+        vec1 = np.array(p2) - np.array(p1)
+        vec2 = np.array(p3) - np.array(p2)
+        dot_product = np.dot(vec1, vec2)
+        magnitude1 = np.linalg.norm(vec1)
+        magnitude2 = np.linalg.norm(vec2)
+        if magnitude1 == 0 or magnitude2 == 0:
+            return 0
+        cos_theta = dot_product / (magnitude1 * magnitude2)
+        cos_theta = min(1, max(-1, cos_theta))
+        return math.degrees(math.acos(cos_theta))
 
     def process_polygons(self, polygons):
         vertices_arr = []
         lines_arr = []
 
         for points in polygons:
-            lines = []
-            for i in range(len(points) - 1):
-                lines.append((points[i], points[(i + 1) % len(points)]))
+            lines = [(points[i], points[(i + 1) % len(points)]) for i in range(len(points))]
 
+            # Step 1: Remove vertices forming concave angles
+            concave_vertices = []
+            for i in range(len(points)):
+                p_prev = points[i - 1]
+                p_curr = points[i]
+                p_next = points[(i + 1) % len(points)]
+                angle = self.calculate_internal_angle(p_prev, p_curr, p_next)
+                if angle > 180:
+                    concave_vertices.append(p_curr)
+
+            points = [p for p in points if p not in concave_vertices]
+
+            # Step 2: Filter vertices with distance logic
+            points = self.filter_points(np.array(points))
+
+            # Step 3: Area contribution logic
             heap = []
-            for i in range(len(lines)):
-                angle = self.calculate_angle_between_lines(lines[i], lines[(i + 1) % len(lines)])
-                if angle is not None:
-                    heapq.heappush(heap, (abs(90 - angle), lines[i], lines[(i + 1) % len(lines)]))
+            for i in range(len(points)):
+                p_prev = points[i - 1]
+                p_curr = points[i]
+                p_next = points[(i + 1) % len(points)]
+                area_contribution = self.calculate_area_contribution(p_prev, p_curr, p_next)
+                heapq.heappush(heap, (-area_contribution, p_curr))
 
             vertices = set()
             while heap:
-                angle_diff, line1, line2 = heapq.heappop(heap)
-                if angle_diff < 360 / (len(vertices) + 1):
-                    common_point = tuple(set(line1) & set(line2))
-                    if common_point:
-                        if not any(self.are_points_close(common_point, v) for v in vertices):
-                            vertices.add(common_point)
+                score, vertex = heapq.heappop(heap)
+                vertex_tuple = tuple(vertex)  # Convert numpy array to a tuple
+                if not any(self.are_points_close(vertex, np.array(v)) for v in vertices):
+                    vertices.add(vertex_tuple)
 
-            vertices = np.array(list(vertices))
-            if vertices.ndim > 2:
-                vertices = vertices.reshape(-1, 2)
+            vertices = np.array([np.array(v) for v in vertices])
+            vertices = self.filter_points(vertices)
 
-            vertices_arr.append(vertices)
+            # Step 4: Check if remaining vertices have nearly the same angles
+            centroid = np.mean(vertices, axis=0)
+            angles = [self.calculate_angle(v, centroid) for v in vertices]
+            avg_angle = np.mean(angles)
+            angle_deviation = np.std(angles)
+
+            # Remove vertices that deviate significantly from the average angle
+            tolerance = 5  # Tolerance in degrees
+            filtered_vertices = []
+            for i, angle in enumerate(angles):
+                if abs(angle - avg_angle) <= tolerance:
+                    filtered_vertices.append(vertices[i])
+
+            vertices_arr.append(np.array(filtered_vertices))
             lines_arr.append(lines)
 
         return vertices_arr, lines_arr
+
+    
+    def calculate_distance(self, p1, p2):
+        """Calculate the Euclidean distance between two points."""
+        return np.linalg.norm(p2 - p1)
+
+    def filter_points(self, points):
+        print(points)
+        distances = [self.calculate_distance(points[i], points[(i+1) % len(points)]) for i in range(len(points))]
+        avg_distance = np.mean(distances)
+        threshold = 0.85 * avg_distance
+        i = 0
+        while i < len(points):
+            if distances[i] < threshold:
+                dist_prev = self.calculate_distance(points[(i-1 + len(points)) % len(points)], points[i])
+                dist_next = self.calculate_distance(points[(i+1) % len(points)], points[(i+2) % len(points)])
+                
+                if dist_prev <= dist_next:
+                    points = np.delete(points, i, axis=0)
+                else:
+                    points = np.delete(points, (i+1) % len(points), axis=0)
+                
+                distances = [self.calculate_distance(points[j], points[(j+1) % len(points)]) for j in range(len(points))]
+            else:
+                i += 1
+        
+        return points
 
     def calculate_angle(self, point, centroid):
         return np.arctan2(point[1] - centroid[1], point[0] - centroid[0])
@@ -91,8 +160,6 @@ class PolygonDetection:
 
         def fit_score(vertices, approx_vertices):
             return np.sum(cdist(vertices, approx_vertices, 'euclidean').min(axis=1))
-
-        
 
         def line_fit_score(lines, approx_vertices):
             total_distance = 0
@@ -124,7 +191,6 @@ class PolygonDetection:
                     best_fit_polygon = approx_vertices
                     best_rotation_angle = angle
                     best_radius = radius
-                # print(score)
 
         return best_fit_polygon, best_rotation_angle, best_radius
 
@@ -182,7 +248,6 @@ class PolygonDetection:
                 distances = cdist(segment_points, best_fit_polygon, 'euclidean').min(axis=1)
                 line_errors.append(np.mean(distances))
 
-            # print(line_errors)
             if any(error > self.error_threshold for error in line_errors):
                 for line in lines:
                     remaining_segments.append(line)

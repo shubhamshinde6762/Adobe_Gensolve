@@ -17,11 +17,15 @@ class CurveProcessor:
         self.updated_curves = {}
 
     def point_line_distance(self, point, start, end):
-        if start == end:
+        point = np.array(point)
+        start = np.array(start)
+        end = np.array(end)
+        
+        if np.array_equal(start, end):
             return np.linalg.norm(point - start)
         else:
             n = abs((end[1] - start[1]) * point[0] - (end[0] - start[0]) * point[1] + end[0] * start[1] - end[1] * start[0])
-            d = np.sqrt((end[1] - start[1]) ** 2 + (end[0] - start[0]) ** 2)
+            d = np.linalg.norm(end - start)
             return n / d
 
     def ramer_douglas_peucker(self, points, epsilon):
@@ -29,6 +33,7 @@ class CurveProcessor:
         index = 0
         end = len(points)
         for i in range(1, end - 1):
+            # print(points)
             d = self.point_line_distance(points[i], points[0], points[-1])
             if d > dmax:
                 index = i
