@@ -64,7 +64,7 @@ def process_csv_data(csv_data: str):
 
     valid_polygons, rejected_polygons, remaining_segments = polygon_detection.process_polygons_with_fit(vertices_arr, lines_arr)
 
-    def interpolate_points(p1, p2, num_points=10):
+    def interpolate_points(p1, p2, num_points=5):
         x_values = np.linspace(p1[0], p2[0], num_points)
         y_values = np.linspace(p1[1], p2[1], num_points)
         return list(zip(x_values, y_values))
@@ -92,7 +92,7 @@ def process_csv_data(csv_data: str):
 
         # Process possible circles
         for idx, (center, radius, circle_points) in enumerate(possible_circles):
-            num_circle_points = int(10 * radius)
+            num_circle_points = int(10)
             circle_points = generate_circle_points(center, radius, num_circle_points)
             for point in circle_points:
                 data.append([index, '0.0000', point[0], point[1]])
