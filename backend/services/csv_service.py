@@ -11,7 +11,6 @@ import csv
 from io import StringIO 
 
 def process_csv_data(csv_data: str):
-    # Initialize SVGProcessor with CSV data
     svg_processor = SVGProcessor(csv_data)
     svg_processor.extract_points_from_csv()
 
@@ -61,10 +60,9 @@ def process_csv_data(csv_data: str):
 
     polygon_detection = PolygonDetection()
     vertices_arr, lines_arr = polygon_detection.process_polygons(filtered_unused_loops)
-
     valid_polygons, rejected_polygons, remaining_segments = polygon_detection.process_polygons_with_fit(vertices_arr, lines_arr)
 
-    def interpolate_points(p1, p2, num_points=5):
+    def interpolate_points(p1, p2, num_points=10):
         x_values = np.linspace(p1[0], p2[0], num_points)
         y_values = np.linspace(p1[1], p2[1], num_points)
         return list(zip(x_values, y_values))
@@ -77,9 +75,8 @@ def process_csv_data(csv_data: str):
 
     def convert_points_to_csv(valid_polygons, possible_circles, remaining_sides, curves, inverse_dict, merged_segments):
         data = []
-        index = 0  # Starting index
+        index = 0  
 
-        # Process valid polygons
         for idx, (best_fit_polygon, best_rotation_angle, best_radius) in enumerate(valid_polygons):
             num_points = best_fit_polygon.shape[0]
             for i in range(num_points):
@@ -92,7 +89,7 @@ def process_csv_data(csv_data: str):
 
         # Process possible circles
         for idx, (center, radius, circle_points) in enumerate(possible_circles):
-            num_circle_points = int(10)
+            num_circle_points = int(20)
             circle_points = generate_circle_points(center, radius, num_circle_points)
             for point in circle_points:
                 data.append([index, '0.0000', point[0], point[1]])
@@ -120,7 +117,6 @@ def process_csv_data(csv_data: str):
                     plotted_curves.add(curve_num)
                     index += 1
 
-        # Process merged segments
         for idx, segment in enumerate(merged_segments):
             p1, p2 = segment
             interpolated_points = interpolate_points(p1, p2)

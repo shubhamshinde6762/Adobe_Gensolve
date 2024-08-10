@@ -76,7 +76,7 @@ class PolygonDetection:
             points = [p for p in points if p not in concave_vertices]
 
             points = self.filter_points(np.array(points))
-            print(points)
+            # print(points)
             heap = []
             for i in range(len(points)):
                 p_prev = points[i - 1]
@@ -88,7 +88,7 @@ class PolygonDetection:
             vertices = set()
             while heap:
                 score, vertex = heapq.heappop(heap)
-                print(score, vertex)
+                # print(score, vertex)
                 vertex_tuple = tuple(vertex)  # Convert numpy array to a tuple
                 if not any(self.are_points_close(vertex, np.array(v)) for v in vertices):
                     vertices.add(vertex_tuple)
@@ -103,7 +103,7 @@ class PolygonDetection:
         return np.linalg.norm(p2 - p1)
 
     def filter_points(self, points):
-        print(points)
+        # print(points)
         distances = [self.calculate_distance(points[i], points[(i+1) % len(points)]) for i in range(len(points))]
         avg_distance = np.mean(distances)
         threshold = 0.85 * avg_distance
@@ -161,7 +161,7 @@ class PolygonDetection:
         best_rotation_angle = 0
         best_radius = average_radius
 
-        radii = np.linspace(average_radius - 1, average_radius + 1, 50)
+        radii = np.linspace(average_radius - 1, average_radius + 1, 1)
         for radius in radii:
             for angle in np.linspace(0, 2 * np.pi, 360):
                 approx_vertices = generate_regular_polygon(centroid, radius, n_vertices, rotation_angle=angle)
