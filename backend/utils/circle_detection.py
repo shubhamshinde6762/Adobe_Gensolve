@@ -117,11 +117,11 @@ class CircleDetector:
                 unused_loops.append(polygon)
                 continue
 
-            self.plot_polygon_and_circle(polygon, center, radius, label='Best Fit Circle')
-            self.plot_remaining_sides(self.unique_cycles, self.marked_sides)
-            plt.legend()
-            plt.axis('equal')
-            plt.show()
+            # self.plot_polygon_and_circle(polygon, center, radius, label='Best Fit Circle')
+            # self.plot_remaining_sides(self.unique_cycles, self.marked_sides)
+            # plt.legend()
+            # plt.axis('equal')
+            # plt.show()
             # print(mse)
             if mse < 50:
                 # print(f'Mean Square Fitting Error: {mse:.4f}')
@@ -144,9 +144,9 @@ class CircleDetector:
             if all_sides_unused:
                 filtered_unused_loops.append(loop)
 
-        plt.figure()
+        # plt.figure()
 
-        self.plot_remaining_sides(self.unique_cycles, self.marked_sides)
+        # self.plot_remaining_sides(self.unique_cycles, self.marked_sides)
         for polygon in self.unique_cycles:
             polygon = np.array(polygon)
             for i in range(len(polygon)):
@@ -159,11 +159,11 @@ class CircleDetector:
             for ((x1, y1), (x2, y2)) in self.remaining_sides
         ])
 
-        for center, radius, polygon in possible_circles:
-            self.plot_polygon_and_circle(polygon, center, radius, label='Best Fit Circle')
+        # for center, radius, polygon in possible_circles:
+        #     self.plot_polygon_and_circle(polygon, center, radius, label='Best Fit Circle')
 
-        plt.legend()
-        plt.axis('equal')
-        plt.show()
+        # plt.legend()
+        # plt.axis('equal')
+        # plt.show()
 
         return filtered_unused_loops, possible_circles

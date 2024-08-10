@@ -161,7 +161,7 @@ class PolygonDetection:
         best_rotation_angle = 0
         best_radius = average_radius
 
-        radii = np.linspace(average_radius - 1, average_radius + 1, 50)
+        radii = np.linspace(average_radius - 1, average_radius + 1, 5)
         for radius in radii:
             for angle in np.linspace(0, 2 * np.pi, 360):
                 approx_vertices = generate_regular_polygon(centroid, radius, n_vertices, rotation_angle=angle)
@@ -185,7 +185,7 @@ class PolygonDetection:
             return None, None, None
 
         min_adjacent_ratio = np.min(side_lengths) / np.max(side_lengths)
-        if min_adjacent_ratio > 0.75:
+        if min_adjacent_ratio > 0.5:
             return None, None, None
 
         centroid = np.mean(vertices, axis=0)

@@ -77,7 +77,7 @@ def process_csv_data(csv_data: str):
         data = []
         index = 0  
 
-        for idx, (best_fit_polygon, best_rotation_angle, best_radius) in enumerate(valid_polygons):
+        for idx, (best_fit_polygon, best_rotation_angle, best_radius, polygon_type) in enumerate(valid_polygons):
             num_points = best_fit_polygon.shape[0]
             for i in range(num_points):
                 p1 = best_fit_polygon[i]
