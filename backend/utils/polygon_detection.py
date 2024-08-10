@@ -185,7 +185,7 @@ class PolygonDetection:
             return None, None, None
 
         min_adjacent_ratio = np.min(side_lengths) / np.max(side_lengths)
-        if min_adjacent_ratio > 0.75:
+        if min_adjacent_ratio > 0.5:
             return None, None, None
 
         centroid = np.mean(vertices, axis=0)
@@ -295,23 +295,25 @@ class PolygonDetection:
         # Plot centroid
         plt.plot(centroid[0], centroid[1], 'ro', label='Centroid')
 
+        # print("polygon_vert", polygon_vertices, polygon_type)
         if polygon_type == "polygon" or polygon_type == "star":
             for vertex in polygon_vertices:
                 plt.plot([vertex[0], centroid[0]], [vertex[1], centroid[1]], 'g--', label='Line of Symmetry')
 
             if len(polygon_vertices) % 2 == 0 and polygon_type == "polygon":
                 num_vertices = len(polygon_vertices)
+                # print(num_vertices)
                 for i in range(num_vertices // 2):
                     opposite_vertex = polygon_vertices[(i + num_vertices // 2) % num_vertices]
                     plt.plot([polygon_vertices[i][0], opposite_vertex[0]],
-                            [polygon_vertices[i][1], opposite_vertex[1]], 'g--', label='Line of Symmetry')
+                            [polygon_vertices[i][1], opposite_vertex[1]], 'b--', label='Bisecting Line')
 
                 for i in range(num_vertices):
                     next_i = (i + 1) % num_vertices
                     midpoint = (polygon_vertices[i] + polygon_vertices[next_i]) / 2
                     opposite_midpoint = (polygon_vertices[(i + num_vertices // 2) % num_vertices] +
                                         polygon_vertices[(next_i + num_vertices // 2) % num_vertices]) / 2
-                    plt.plot([midpoint[0], opposite_midpoint[0]], [midpoint[1], opposite_midpoint[1]], 'g--', label='Line of Symmetry')
+                    plt.plot([midpoint[0], opposite_midpoint[0]], [midpoint[1], opposite_midpoint[1]], 'r--', label='Perpendicular Bisector')
 
         elif polygon_type == "rectangle":
             diagonals = [
