@@ -57,7 +57,7 @@ export default function App() {
             formData.append("file", blob, "drawing.csv");
 
             await axios
-              .post("https://adobe-gensolve.onrender.com/upload_csv", formData, {
+              .post("https://specific-fina-shubham6762-382e557a.koyeb.app//upload_csv", formData, {
                 headers: {
                   "Content-Type": "multipart/form-data",
                 },
