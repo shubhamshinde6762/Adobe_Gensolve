@@ -12,7 +12,8 @@ We have adhered to using traditional mathematical algorithms and computer graphi
 The most important highlight for this section is out custom optimization on the **Ramer-Douglas-Peucker** algorithm and **Johnson's algorithm**, which has reduced these steps to a complexity of **O(n*logn)**.
 
 We deployed this into a web-app, to test the generalizaion and performance of our algorithms on hand-drawn doodles. Please visit it [here](https://curvotopia.vercel.app/). Here are some snapshots.
-
+![Before Regularization](https://github.com/user-attachments/assets/87f88f24-2bd5-4067-a25d-4dfc3941993b)
+![After Regularization](https://github.com/user-attachments/assets/485cd30a-b162-4381-99ec-df1bc75b48ea)
 
 ### Completing the Incomplete curves
 
@@ -21,6 +22,9 @@ We have adhered to traditional geometry and computer graphics algorithms to fill
 Unlike several other redundant solutions that use deep learning and computer vision techniques for this, we have used the inherent properties of bezier curves, specifically the **centres of the osculating circles**. We developed a cross-link converging interpolation technique that estimates the control points of the infilling curve using the surrounding osculating circle centres.
 
 Here are some snapshots.
+![First TestCase](https://github.com/user-attachments/assets/3f395941-7dbe-46a3-84df-b6e752bcf80b)
+![Second TestCase](https://github.com/user-attachments/assets/d59c1b9b-3419-40d2-b763-e31e0b14a4ba)
+
 ## Authors
 
 - [Shubham Shinde](https://www.linkedin.com/in/shubhamshinde6762/)
