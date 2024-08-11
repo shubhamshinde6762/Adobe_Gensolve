@@ -19,7 +19,7 @@ We deployed this into a web app to test the generalization and performance of ou
 - **Before Regularization:** ![Before Regularization](https://github.com/user-attachments/assets/87f88f24-2bd5-4067-a25d-4dfc3941993b)
 - **After Regularization:** ![After Regularization](https://github.com/user-attachments/assets/485cd30a-b162-4381-99ec-df1bc75b48ea)
 
-For more details, visit our [Regularization and Symmetry Analysis Colab Notebook](https://github.com/user-attachments/assets/regularization_symmetry) page.
+For more details, visit our [Regularization and Symmetry Analysis Colab Notebook](https://colab.research.google.com/drive/1fYRGmyuaJPW4emlv6oFc5tRacVraONJz?usp=sharing) page.
 
 ### Completing the Incomplete Curves
 
@@ -32,7 +32,7 @@ Here are some snapshots:
 - **First Test Case:** ![First Test Case](https://github.com/user-attachments/assets/3f395941-7dbe-46a3-84df-b6e752bcf80b)
 - **Second Test Case:** ![Second Test Case](https://github.com/user-attachments/assets/d59c1b9b-3419-40d2-b763-e31e0b14a4ba)
 
-For more details, visit our [Occlusion Infilling Colab Notebook](https://github.com/user-attachments/assets/occlusion_infilling) page.
+For more details, visit our [Occlusion Infilling Colab Notebook](https://colab.research.google.com/drive/1ZzidTt0xzyM3Js9-QK43d8cv_bvI4tlX?usp=sharing) page.
 
 ## Authors
 
