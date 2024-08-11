@@ -11,7 +11,7 @@ We have adhered to using traditional mathematical algorithms and computer graphi
 
 The most important highlight for this section is out custom optimization on the **Ramer-Douglas-Peucker** algorithm and **Johnson's algorithm**, which has reduced these steps to a complexity of **O(n*logn)**.
 
-We deployed this into a web-app, to test the generalizaion and performance of our algorithms on hand-drawn doodles. Please visit it [here](https://curvotopia.vercel.app/). Here are some snapshots.
+We deployed this into a web-app, to test the generalizaion and performance of our algorithms on hand-drawn doodles. Please visit it using this link: [Curvetopia: A Journey into the World of Curves](https://curvotopia.vercel.app/). Here are some snapshots.
 #### Before Regularization
 ![Before Regularization](https://github.com/user-attachments/assets/87f88f24-2bd5-4067-a25d-4dfc3941993b)
 
