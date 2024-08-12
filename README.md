@@ -14,8 +14,27 @@ The most important highlight of this section is our custom optimization of the *
 
 We deployed this into a web app to test the generalization and performance of our algorithms on hand-drawn doodles. Please visit it using this link: [Curvetopia: A Journey into the World of Curves](https://curvotopia.vercel.app/). Here are some snapshots:
 
+
 - **Before Regularization:** ![Before Regularization](https://github.com/user-attachments/assets/87f88f24-2bd5-4067-a25d-4dfc3941993b)
+
+  
 - **After Regularization:** ![After Regularization](https://github.com/user-attachments/assets/485cd30a-b162-4381-99ec-df1bc75b48ea)
+
+
+Here are the outputs for the given testcases:
+
+
+- **frag0:** ![frag0](https://github.com/user-attachments/assets/48a62eb9-1d79-47d2-8e9a-f79f5ea21462)
+
+
+- **frag1:** ![frag1](https://github.com/user-attachments/assets/7dd39f82-c8eb-40d9-bf56-49d735d26031)
+
+
+- **frag2:** ![frag2](https://github.com/user-attachments/assets/ceeeffd6-cbd7-4fcc-a523-20ccf4709f9d)
+
+
+- **isolated:** ![isolated](https://github.com/user-attachments/assets/f5b760e3-674c-484f-9c70-3941e9499eec)
+
 
 For more details, visit our [Regularization and Symmetry Analysis Colab Notebook](https://colab.research.google.com/drive/1fYRGmyuaJPW4emlv6oFc5tRacVraONJz?usp=sharing) page.
 
