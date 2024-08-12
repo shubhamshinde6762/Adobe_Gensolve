@@ -1,7 +1,3 @@
-Here's your updated project description with the additional links:
-
----
-
 # Curvetopia: A Journey into the World of Curves
 
 This project uses cutting-edge mathematical algorithms and optimized computer graphics techniques to carry out regularization, symmetry analysis, and occlusion infilling in hand-drawn shapes and doodles. All the code for this project was written from 25th of July to 11th of August, as a submission to Adobe Gensolve Hackathon Round-2.
@@ -40,5 +36,3 @@ For more details, visit our [Occlusion Infilling Colab Notebook](https://colab.r
 - [Aarya Bhave](https://www.linkedin.com/in/aarya-bhave-aa4a13256/)
 
 --- 
-
-This version now includes the requested links for more details on regularization and symmetry, and occlusion infilling.
