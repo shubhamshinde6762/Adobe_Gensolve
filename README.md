@@ -1,3 +1,5 @@
+---
+
 # Curvetopia: A Journey into the World of Curves
 
 This project uses cutting-edge mathematical algorithms and optimized computer graphics techniques to carry out regularization, symmetry analysis, and occlusion infilling in hand-drawn shapes and doodles. All the code for this project was written from 25th of July to 11th of August, as a submission to Adobe Gensolve Hackathon Round-2.
